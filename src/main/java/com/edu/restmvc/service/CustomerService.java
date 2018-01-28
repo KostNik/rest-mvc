@@ -18,4 +18,6 @@ public interface CustomerService {
     CustomerDTO addNewCustomer(CustomerDTO customer);
 
     CustomerDTO updateCustomer(Long id, CustomerDTO customer);
+
+    CustomerDTO patchCustomer(Long id, CustomerDTO customer);
 }

@@ -5,6 +5,7 @@ import com.edu.restmvc.mapper.CustomerMapper;
 import com.edu.restmvc.model.CustomerDTO;
 import com.edu.restmvc.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,6 +54,19 @@ public class CustomerServiceImpl implements CustomerService {
         Customer dtoToCustomer = customerMapper.customerDTOToCustomer(customer);
         dtoToCustomer.setId(id);
         return saveAndReturnDTO(dtoToCustomer);
+    }
+
+    @Override
+    public CustomerDTO patchCustomer(Long id, CustomerDTO customerDTO) {
+        return customerRepository.findById(id).map(customer -> {
+            if (!StringUtils.isEmpty(customerDTO.getFirstname())) {
+                customer.setFirstname(customerDTO.getFirstname());
+            }
+            if (!StringUtils.isEmpty(customerDTO.getLastname())) {
+                customer.setLastname(customerDTO.getLastname());
+            }
+            return saveAndReturnDTO(customer);
+        }).orElseThrow(RuntimeException::new);
     }
 
     private CustomerDTO saveAndReturnDTO(Customer customer) {
