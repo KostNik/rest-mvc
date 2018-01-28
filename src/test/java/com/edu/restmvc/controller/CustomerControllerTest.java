@@ -135,7 +135,8 @@ public class CustomerControllerTest {
     @Test
     public void testPatchCustomer() throws Exception {
 
-        CustomerDTO customerDTO = new CustomerDTO(NAME_1, SURNAME_1);
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstname(NAME_1);
 
         CustomerDTO customerDTOReturned = new CustomerDTO(ID_1, NAME_1, SURNAME_1);
         String customerUrl = "/api/customers/" + ID_1;
