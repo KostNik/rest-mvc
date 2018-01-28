@@ -1,6 +1,5 @@
 package com.edu.restmvc.controller;
 
-import com.edu.restmvc.domain.Customer;
 import com.edu.restmvc.model.CustomerDTO;
 import com.edu.restmvc.service.CustomerService;
 import org.assertj.core.util.Lists;
@@ -14,16 +13,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static com.edu.restmvc.utils.Utils.fromObjectToJSON;
-import static org.hamcrest.Matchers.comparesEqualTo;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -36,6 +32,11 @@ public class CustomerControllerTest {
     private final static Long   ID_1      = 3L;
     private final static String NAME_1    = "Bill";
     private final static String SURNAME_1 = "Yellow";
+
+
+    private final static Long   ID_2      = 4L;
+    private final static String NAME_2    = "Susy";
+    private final static String SURNAME_2 = "Brown";
 
     @Mock
     private CustomerService customerService;
@@ -103,6 +104,26 @@ public class CustomerControllerTest {
         when(customerService.addNewCustomer(customerDTO)).thenReturn(customerDTOSaved);
 
         mockMvc.perform(post("/api/customers")
+                .content(fromObjectToJSON(customerDTO))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.firstname", equalTo(NAME_1)))
+                .andExpect(jsonPath("$.customer_url", equalTo(customerUrl)))
+                .andExpect(jsonPath("$.lastname", equalTo(SURNAME_1)));
+    }
+
+    @Test
+    public void testUpdateCustomer() throws Exception {
+
+        CustomerDTO customerDTO = new CustomerDTO(NAME_1, SURNAME_1);
+
+        CustomerDTO customerDTOReturned = new CustomerDTO(ID_1, NAME_1, SURNAME_1);
+        String customerUrl = "/api/customers/" + ID_1;
+        customerDTOReturned.setCustomerUrl(customerUrl);
+
+        when(customerService.updateCustomer(anyLong(), any(CustomerDTO.class))).thenReturn(customerDTOReturned);
+
+        mockMvc.perform(put("/api/customers/" + ID_1)
                 .content(fromObjectToJSON(customerDTO))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())

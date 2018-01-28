@@ -17,6 +17,8 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -99,6 +101,26 @@ public class CustomerServiceTest {
         assertEquals(NAME_1, customerSaved.getFirstname());
         assertEquals(SURNAME_1, customerSaved.getLastname());
         assertEquals(customerUrl, customerSaved.getCustomerUrl());
+    }
+
+
+    @Test
+    public void testUpdateCustomer() {
+        Customer customer_1 = new Customer(NAME_1, SURNAME_1);
+        customer_1.setId(ID_1);
+
+        CustomerDTO customerDTO = new CustomerDTO(customer_1.getId(), customer_1.getFirstname(), customer_1.getLastname());
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer_1);
+
+        CustomerDTO customerSaved = customerService.updateCustomer(ID_1, customerDTO);
+
+        verify(customerRepository, times(1)).save(any(Customer.class));
+
+        assertEquals(customerDTO.getFirstname(), customerSaved.getFirstname());
+        assertEquals(customerDTO.getLastname(), customerSaved.getLastname());
+
+
     }
 
 }
