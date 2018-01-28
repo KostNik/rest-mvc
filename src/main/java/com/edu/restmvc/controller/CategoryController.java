@@ -33,7 +33,7 @@ public class CategoryController {
     }
 
     @GetMapping("{name}")
-    public ResponseEntity<CategoryDTO> getAllCategoryByName(@PathVariable("name") String categoryName) {
+    public ResponseEntity<CategoryDTO> getCategoryByName(@PathVariable("name") String categoryName) {
         CategoryDTO categoryDTO = categoryService.getByName(categoryName);
         return ResponseEntity.ok(categoryDTO);
     }

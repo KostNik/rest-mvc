@@ -6,14 +6,15 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * Created by SweetHome on 28/01/2018
+ * Created by Kostiuk Nikita on 28/01/2018
  */
+
 @Data
 @AllArgsConstructor
-public class CategoryListDTO {
+public class CustomerListDTO {
 
-    private List<CategoryDTO> categories;
-
-
+    private List<CustomerDTO> customers;
 
 }
+
+
