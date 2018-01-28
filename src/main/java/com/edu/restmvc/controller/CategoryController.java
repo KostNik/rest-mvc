@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/api/categories/")
+@RequestMapping("/api/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -28,16 +28,14 @@ public class CategoryController {
     public ResponseEntity<CategoryListDTO> getAllCategories() {
         List<CategoryDTO> all = categoryService.getAll();
         CategoryListDTO categoryListDTO = new CategoryListDTO(all);
-//        return ResponseEntity.status(HttpStatus.OK).body(categoryListDTO);
         return ResponseEntity.ok(categoryListDTO);
     }
 
-    @GetMapping("{name}")
+    @GetMapping("/{name}")
     public ResponseEntity<CategoryDTO> getCategoryByName(@PathVariable("name") String categoryName) {
         CategoryDTO categoryDTO = categoryService.getByName(categoryName);
         return ResponseEntity.ok(categoryDTO);
     }
-
 
 
 }

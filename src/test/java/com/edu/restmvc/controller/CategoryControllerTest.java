@@ -65,7 +65,7 @@ public class CategoryControllerTest {
 
         when(categoryService.getAll()).thenReturn(Lists.newArrayList(category_1, category_2));
 
-        mockMvc.perform(get("/api/categories/")
+        mockMvc.perform(get("/api/categories")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.categories", hasSize(2)));

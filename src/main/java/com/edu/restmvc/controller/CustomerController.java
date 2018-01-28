@@ -3,12 +3,11 @@ package com.edu.restmvc.controller;
 import com.edu.restmvc.model.CustomerDTO;
 import com.edu.restmvc.model.CustomerListDTO;
 import com.edu.restmvc.service.CustomerService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/api/customers/")
+@RequestMapping("/api/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -31,16 +30,22 @@ public class CustomerController {
         return ResponseEntity.ok(customerListDTO);
     }
 
-    @GetMapping("customer")
+    @GetMapping("/customer")
     public ResponseEntity<CustomerDTO> getCustomerByNameAndSurname(@RequestParam("firstname") String name, @RequestParam("lastname") String surname) {
         CustomerDTO customerDTO = customerService.getByNameAndSurname(name, surname);
         return ResponseEntity.ok(customerDTO);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Long id) {
         CustomerDTO customerDTO = customerService.getById(id);
         return ResponseEntity.ok(customerDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<CustomerDTO> addNewCustomer(@RequestBody CustomerDTO customer) {
+        CustomerDTO customerDTO = customerService.addNewCustomer(customer);
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerDTO);
     }
 
 

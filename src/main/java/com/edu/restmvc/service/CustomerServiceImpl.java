@@ -1,5 +1,6 @@
 package com.edu.restmvc.service;
 
+import com.edu.restmvc.domain.Customer;
 import com.edu.restmvc.mapper.CustomerMapper;
 import com.edu.restmvc.model.CustomerDTO;
 import com.edu.restmvc.repository.CustomerRepository;
@@ -39,5 +40,14 @@ public class CustomerServiceImpl implements CustomerService {
                 .stream()
                 .map(customerMapper::customerToCustomerDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public CustomerDTO addNewCustomer(CustomerDTO customer) {
+        Customer customerToSave = customerMapper.customerDTOToCustomer(customer);
+        Customer saved = customerRepository.save(customerToSave);
+        CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(saved);
+        customerDTO.setCustomerUrl("/api/customers/" + customerDTO.getId());
+        return customerDTO;
     }
 }

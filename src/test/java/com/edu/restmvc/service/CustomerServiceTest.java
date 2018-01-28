@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -43,7 +44,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void getByNameAndSurname() {
+    public void testGetByNameAndSurname() {
         Customer customer = new Customer(NAME_1, SURNAME_1);
         customer.setId(ID_1);
 
@@ -55,7 +56,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void getById() {
+    public void testGetById() {
         Customer customer = new Customer(NAME_1, SURNAME_1);
         customer.setId(ID_1);
 
@@ -68,7 +69,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void getAll() {
+    public void testGetAll() {
         Customer customer_1 = new Customer(NAME_1, SURNAME_1);
         customer_1.setId(ID_1);
 
@@ -80,4 +81,24 @@ public class CustomerServiceTest {
 
         assertEquals(2, all.size());
     }
+
+
+    @Test
+    public void testAddNewCustomer() {
+        Customer customer_1 = new Customer(NAME_1, SURNAME_1);
+        customer_1.setId(ID_1);
+
+        CustomerDTO customerDTO = new CustomerDTO(customer_1.getId(), customer_1.getFirstname(), customer_1.getLastname());
+        String customerUrl = "/api/customers/" + ID_1;
+        customerDTO.setCustomerUrl(customerUrl);
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer_1);
+
+        CustomerDTO customerSaved = customerService.addNewCustomer(customerDTO);
+
+        assertEquals(NAME_1, customerSaved.getFirstname());
+        assertEquals(SURNAME_1, customerSaved.getLastname());
+        assertEquals(customerUrl, customerSaved.getCustomerUrl());
+    }
+
 }

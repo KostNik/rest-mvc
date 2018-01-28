@@ -14,4 +14,6 @@ public interface CustomerService {
     CustomerDTO getById(Long id);
 
     List<CustomerDTO> getAll();
+
+    CustomerDTO addNewCustomer(CustomerDTO customer);
 }
