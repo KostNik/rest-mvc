@@ -1,6 +1,7 @@
 package com.edu.restmvc.controller;
 
 import com.edu.restmvc.exceptions.ResourceNotFoundException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,11 +18,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler({ResourceNotFoundException.class})
     public ResponseEntity<Object> handleNotFoundException(Exception ex, WebRequest webRequest) {
-        ResponseEntity<Object> responseEntity = ResponseEntity.<Object>status(HttpStatus.NOT_FOUND).body("Resource not found"
-                + "\n"
-                + ex.getMessage()
-                + "\n"
-                + webRequest.getContextPath());
+        ResponseEntity<Object> responseEntity = ResponseEntity.<Object>status(HttpStatus.NOT_FOUND)
+                .headers(new HttpHeaders())
+                .body("Resource not found");
         return responseEntity;
     }
 

@@ -6,9 +6,7 @@ import com.edu.restmvc.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,7 +14,7 @@ import java.util.List;
  * Created by SweetHome on 28/01/2018
  */
 
-@Controller
+@RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
 
@@ -25,16 +23,16 @@ public class CategoryController {
     public CategoryController(CategoryService categoryService) {this.categoryService = categoryService;}
 
     @GetMapping
-    public ResponseEntity<CategoryListDTO> getAllCategories() {
+    @ResponseStatus(HttpStatus.OK)
+    public CategoryListDTO getAllCategories() {
         List<CategoryDTO> all = categoryService.getAll();
-        CategoryListDTO categoryListDTO = new CategoryListDTO(all);
-        return ResponseEntity.ok(categoryListDTO);
+        return new CategoryListDTO(all);
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<CategoryDTO> getCategoryByName(@PathVariable("name") String categoryName) {
-        CategoryDTO categoryDTO = categoryService.getByName(categoryName);
-        return ResponseEntity.ok(categoryDTO);
+    @ResponseStatus(HttpStatus.OK)
+    public CategoryDTO getCategoryByName(@PathVariable("name") String categoryName) {
+        return categoryService.getByName(categoryName);
     }
 
 
