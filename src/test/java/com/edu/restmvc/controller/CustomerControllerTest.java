@@ -142,7 +142,7 @@ public class CustomerControllerTest {
         String customerUrl = "/api/customers/" + ID_1;
         customerDTOReturned.setCustomerUrl(customerUrl);
 
-        when(customerService.updateCustomer(anyLong(), any(CustomerDTO.class))).thenReturn(customerDTOReturned);
+        when(customerService.patchCustomer(anyLong(), any(CustomerDTO.class))).thenReturn(customerDTOReturned);
 
         mockMvc.perform(patch("/api/customers/" + ID_1)
                 .content(fromObjectToJSON(customerDTO))
