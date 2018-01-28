@@ -18,6 +18,8 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -28,15 +30,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 public class CustomerControllerTest {
 
-
     private final static Long   ID_1      = 3L;
     private final static String NAME_1    = "Bill";
     private final static String SURNAME_1 = "Yellow";
-
-
-    private final static Long   ID_2      = 4L;
-    private final static String NAME_2    = "Susy";
-    private final static String SURNAME_2 = "Brown";
 
     @Mock
     private CustomerService customerService;
@@ -151,5 +147,15 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.firstname", equalTo(NAME_1)))
                 .andExpect(jsonPath("$.customer_url", equalTo(customerUrl)))
                 .andExpect(jsonPath("$.lastname", equalTo(SURNAME_1)));
+    }
+
+    @Test
+    public void testDeleteCustomer() throws Exception {
+
+        mockMvc.perform(delete("/api/customers/" + ID_1))
+                .andExpect(status().isOk());
+
+        verify(customerService, times(1)).deleteById(anyLong());
+
     }
 }

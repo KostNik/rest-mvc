@@ -123,4 +123,13 @@ public class CustomerServiceTest {
 
     }
 
+    @Test
+    public void testDeleteCustomer() {
+
+        customerService.deleteById(ID_1);
+
+        verify(customerRepository, times(1)).deleteById(anyLong());
+
+    }
+
 }

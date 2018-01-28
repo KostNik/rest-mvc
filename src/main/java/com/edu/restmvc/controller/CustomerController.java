@@ -60,5 +60,16 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(customerDTO);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
+        customerService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handleBase(Exception ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
 
 }

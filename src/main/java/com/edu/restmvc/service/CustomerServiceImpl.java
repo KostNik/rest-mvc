@@ -75,4 +75,9 @@ public class CustomerServiceImpl implements CustomerService {
         customerDTO.setCustomerUrl("/api/customers/" + customerDTO.getId());
         return customerDTO;
     }
+
+    @Override
+    public void deleteById(Long id) {
+        customerRepository.deleteById(id);
+    }
 }

@@ -68,4 +68,6 @@ public class CategoryServiceTest {
         List<CategoryDTO> all = categoryService.getAll();
         assertEquals(3, all.size());
     }
+
+
 }
