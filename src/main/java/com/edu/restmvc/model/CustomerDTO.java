@@ -10,16 +10,22 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class CustomerDTO {
 
     private Long   id;
-    private String name;
-    private String surname;
+    private String firstname;
+    private String lastname;
+    private String customerUrl;
 
-    public CustomerDTO(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
+    public CustomerDTO(String firstname, String lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+    public CustomerDTO(Long id, String firstname, String lastname) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 }
 

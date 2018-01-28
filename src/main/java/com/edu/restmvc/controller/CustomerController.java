@@ -32,7 +32,7 @@ public class CustomerController {
     }
 
     @GetMapping("customer")
-    public ResponseEntity<CustomerDTO> getCustomerByNameAndSurname(@RequestParam("name") String name, @RequestParam("surname") String surname) {
+    public ResponseEntity<CustomerDTO> getCustomerByNameAndSurname(@RequestParam("firstname") String name, @RequestParam("lastname") String surname) {
         CustomerDTO customerDTO = customerService.getByNameAndSurname(name, surname);
         return ResponseEntity.ok(customerDTO);
     }

@@ -19,12 +19,12 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long   id;
-    private String name;
-    private String surname;
+    private String firstname;
+    private String lastname;
 
 
-    public Customer(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
+    public Customer(String firstname, String lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 }

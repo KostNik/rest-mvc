@@ -65,11 +65,11 @@ public class CustomerControllerTest {
         CustomerDTO customerDTO = new CustomerDTO(ID_1, NAME_1, SURNAME_1);
         when(customerService.getByNameAndSurname(anyString(), anyString())).thenReturn(customerDTO);
 
-        mockMvc.perform(get("/api/customers/customer?name=anyName&surname=anySurname")
+        mockMvc.perform(get("/api/customers/customer?firstname=anyName&lastname=anySurname")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", equalTo(NAME_1)))
-                .andExpect(jsonPath("$.surname", equalTo(SURNAME_1)));
+                .andExpect(jsonPath("$.firstname", equalTo(NAME_1)))
+                .andExpect(jsonPath("$.lastname", equalTo(SURNAME_1)));
 //                .andExpect(jsonPath("$.id", equalTo(ID_1)));
 
     }
@@ -83,8 +83,8 @@ public class CustomerControllerTest {
         mockMvc.perform(get("/api/customers/3")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", equalTo(NAME_1)))
-                .andExpect(jsonPath("$.surname", equalTo(SURNAME_1)));
+                .andExpect(jsonPath("$.firstname", equalTo(NAME_1)))
+                .andExpect(jsonPath("$.lastname", equalTo(SURNAME_1)));
 //                .andExpect(jsonPath("$.id", equalTo(ID_1)));
 
     }

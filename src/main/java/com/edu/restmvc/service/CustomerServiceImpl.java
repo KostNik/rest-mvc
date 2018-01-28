@@ -25,12 +25,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getByNameAndSurname(String name, String surname) {
-        return customerRepository.findByNameAndSurname(name, surname).map(customerMapper::customerToCustomerDTO).orElse(null);
+        return customerRepository.findByFirstnameAndLastname(name, surname).map(customerMapper::customerToCustomerDTO).orElseThrow(RuntimeException::new);
     }
 
     @Override
     public CustomerDTO getById(Long id) {
-        return customerRepository.findById(id).map(customerMapper::customerToCustomerDTO).orElse(null);
+        return customerRepository.findById(id).map(customerMapper::customerToCustomerDTO).orElseThrow(RuntimeException::new);
     }
 
     @Override

@@ -47,11 +47,11 @@ public class CustomerServiceTest {
         Customer customer = new Customer(NAME_1, SURNAME_1);
         customer.setId(ID_1);
 
-        when(customerRepository.findByNameAndSurname(anyString(), anyString())).thenReturn(Optional.of(customer));
+        when(customerRepository.findByFirstnameAndLastname(anyString(), anyString())).thenReturn(Optional.of(customer));
         CustomerDTO customerDTO = customerService.getByNameAndSurname(NAME_1, SURNAME_1);
         assertEquals(ID_1, customerDTO.getId());
-        assertEquals(NAME_1, customerDTO.getName());
-        assertEquals(SURNAME_1, customerDTO.getSurname());
+        assertEquals(NAME_1, customerDTO.getFirstname());
+        assertEquals(SURNAME_1, customerDTO.getLastname());
     }
 
     @Test
@@ -62,8 +62,8 @@ public class CustomerServiceTest {
         when(customerRepository.findById(anyLong())).thenReturn(Optional.of(customer));
         CustomerDTO customerDTO = customerService.getById(ID_1);
         assertEquals(ID_1, customerDTO.getId());
-        assertEquals(NAME_1, customerDTO.getName());
-        assertEquals(SURNAME_1, customerDTO.getSurname());
+        assertEquals(NAME_1, customerDTO.getFirstname());
+        assertEquals(SURNAME_1, customerDTO.getLastname());
 
     }
 
