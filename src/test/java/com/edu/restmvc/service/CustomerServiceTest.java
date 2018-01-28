@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.List;
 import java.util.Optional;
 
+import static com.edu.restmvc.controller.CustomerController.CUSTOMER_BASE_URL;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -91,7 +92,7 @@ public class CustomerServiceTest {
         customer_1.setId(ID_1);
 
         CustomerDTO customerDTO = new CustomerDTO(customer_1.getId(), customer_1.getFirstname(), customer_1.getLastname());
-        String customerUrl = "/api/customers/" + ID_1;
+        String customerUrl = CUSTOMER_BASE_URL + "/" + ID_1;
         customerDTO.setCustomerUrl(customerUrl);
 
         when(customerRepository.save(any(Customer.class))).thenReturn(customer_1);

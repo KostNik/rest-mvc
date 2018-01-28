@@ -10,6 +10,8 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.edu.restmvc.controller.CustomerController.CUSTOMER_BASE_URL;
+
 /**
  * Created by Kostiuk Nikita on 28/01/2018
  */
@@ -40,6 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAll()
                 .stream()
                 .map(customerMapper::customerToCustomerDTO)
+                .peek(dto -> dto.setCustomerUrl(CUSTOMER_BASE_URL + "/" + dto.getId()))
                 .collect(Collectors.toList());
     }
 
@@ -72,7 +75,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerDTO saveAndReturnDTO(Customer customer) {
         Customer saved = customerRepository.save(customer);
         CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(saved);
-        customerDTO.setCustomerUrl("/api/customers/" + customerDTO.getId());
+        customerDTO.setCustomerUrl(CUSTOMER_BASE_URL + "/" + customerDTO.getId());
         return customerDTO;
     }
 

@@ -19,6 +19,8 @@ import java.util.List;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
+    public static final String CUSTOMER_BASE_URL = "/api/customers";
+
     private final CustomerService customerService;
 
     public CustomerController(CustomerService customerService) {this.customerService = customerService;}
