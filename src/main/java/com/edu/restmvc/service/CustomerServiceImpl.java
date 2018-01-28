@@ -1,6 +1,7 @@
 package com.edu.restmvc.service;
 
 import com.edu.restmvc.domain.Customer;
+import com.edu.restmvc.exceptions.ResourceNotFoundException;
 import com.edu.restmvc.mapper.CustomerMapper;
 import com.edu.restmvc.model.CustomerDTO;
 import com.edu.restmvc.repository.CustomerRepository;
@@ -29,12 +30,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO getByNameAndSurname(String name, String surname) {
-        return customerRepository.findByFirstnameAndLastname(name, surname).map(customerMapper::customerToCustomerDTO).orElseThrow(RuntimeException::new);
+        return customerRepository.findByFirstnameAndLastname(name, surname)
+                .map(customerMapper::customerToCustomerDTO)
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
     public CustomerDTO getById(Long id) {
-        return customerRepository.findById(id).map(customerMapper::customerToCustomerDTO).orElseThrow(RuntimeException::new);
+        return customerRepository.findById(id)
+                .map(customerMapper::customerToCustomerDTO)
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -69,7 +74,7 @@ public class CustomerServiceImpl implements CustomerService {
                 customer.setLastname(customerDTO.getLastname());
             }
             return saveAndReturnDTO(customer);
-        }).orElseThrow(RuntimeException::new);
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 
     private CustomerDTO saveAndReturnDTO(Customer customer) {

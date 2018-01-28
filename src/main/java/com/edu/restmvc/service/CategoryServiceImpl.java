@@ -1,5 +1,6 @@
 package com.edu.restmvc.service;
 
+import com.edu.restmvc.exceptions.ResourceNotFoundException;
 import com.edu.restmvc.mapper.CategoryMapper;
 import com.edu.restmvc.model.CategoryDTO;
 import com.edu.restmvc.repository.CategoryRepository;
@@ -27,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDTO getByName(String name) {
         return categoryRepository.findByName(name)
                 .map(categoryMapper::categoryToCategoryDTO)
-                .orElse(null);
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override

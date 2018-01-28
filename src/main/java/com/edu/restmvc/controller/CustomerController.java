@@ -68,10 +68,4 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @ExceptionHandler
-    public ResponseEntity<String> handleBase(Exception ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
-
-
 }
