@@ -145,10 +145,8 @@ public class VendorControllerTest {
 
     @Test
     public void testDeleteVendor() throws Exception {
-
         mockMvc.perform(delete(VENDOR_BASE_URL + "/" + ID_1))
                 .andExpect(status().isOk());
-
         verify(vendorService, times(1)).deleteById(anyLong());
 
     }

@@ -1,6 +1,7 @@
 package com.edu.restmvc.service;
 
 import com.edu.restmvc.domain.Vendor;
+import com.edu.restmvc.exceptions.ResourceNotFoundException;
 import com.edu.restmvc.mapper.VendorMapper;
 import com.edu.restmvc.model.VendorDTO;
 import com.edu.restmvc.repository.VendorRepository;
@@ -111,6 +112,12 @@ public class VendorServiceTest {
 
         assertEquals(NAME_1, vendorSaved.getName());
         assertEquals(vendorUrl, vendorSaved.getVendorUrl());
+    }
+
+    @Test(expected = ResourceNotFoundException.class)
+    public void testResourceNotFound() {
+        when(vendorRepository.findById(anyLong())).thenReturn(Optional.empty());
+        vendorService.getById(anyLong());
     }
 
     @Test
