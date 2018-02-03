@@ -6,6 +6,7 @@ import com.edu.restmvc.mapper.CustomerMapper;
 import com.edu.restmvc.model.CustomerDTO;
 import com.edu.restmvc.repository.CategoryRepository;
 import com.edu.restmvc.repository.CustomerRepository;
+import com.edu.restmvc.repository.VendorRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,12 +35,15 @@ public class CustomerServiceIT {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private VendorRepository vendorRepository;
+
     private CustomerService customerService;
 
 
     @Before
     public void setUp() throws Exception {
-        Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository);
+        Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository, vendorRepository);
         bootstrap.run();
 
         customerService = new CustomerServiceImpl(customerRepository, CustomerMapper.INSTANCE);

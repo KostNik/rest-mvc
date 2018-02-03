@@ -19,6 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 /**
@@ -59,8 +61,13 @@ public class VendorServiceTest {
         Vendor vendor = new Vendor(NAME_1);
         vendor.setId(ID_1);
 
-        when(vendorRepository.findById(anyLong())).thenReturn(Optional.of(vendor));
+
+        given(vendorRepository.findById(anyLong())).willReturn(Optional.of(vendor));
+
         VendorDTO vendorDTO = vendorService.getById(ID_1);
+
+
+        then(vendorRepository).should(times(1)).findById(anyLong());
         assertEquals(ID_1, vendorDTO.getId());
         assertEquals(NAME_1, vendorDTO.getName());
 
