@@ -20,4 +20,12 @@ public class VendorDTO {
     @JsonProperty("vendor_url")
     private String vendorUrl;
 
+    public VendorDTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public VendorDTO(String name) {
+        this.name = name;
+    }
 }
