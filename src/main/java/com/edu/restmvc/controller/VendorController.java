@@ -3,13 +3,15 @@ package com.edu.restmvc.controller;
 import com.edu.restmvc.model.VendorDTO;
 import com.edu.restmvc.model.VendorListDTO;
 import com.edu.restmvc.service.VendorService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Kostiuk Nikita
  */
-
+@Api(description = "This is the Vendor controller")
 @RestController
 @RequestMapping("api/vendors")
 public class VendorController {
@@ -31,6 +33,7 @@ public class VendorController {
     }
 
 
+    @ApiOperation(value = "Receive ALL Vendors", notes = "VendorListDTO")
     @GetMapping
     public VendorListDTO getAll() {
         return new VendorListDTO(vendorService.getAll());

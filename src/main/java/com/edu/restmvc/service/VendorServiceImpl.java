@@ -36,6 +36,10 @@ public class VendorServiceImpl implements VendorService {
     public VendorDTO getById(Long id) {
         return vendorRepository.findById(id)
                 .map(vendorMapper::vendorToVendorDTO)
+                .map(v -> {
+                    v.setVendorUrl(VENDOR_BASE_URL + "/" + v.getId());
+                    return v;
+                })
                 .orElseThrow(ResourceNotFoundException::new);
     }
 
@@ -43,6 +47,10 @@ public class VendorServiceImpl implements VendorService {
     public VendorDTO getByName(String name) {
         return vendorRepository.findByName(name)
                 .map(vendorMapper::vendorToVendorDTO)
+                .map(v -> {
+                    v.setVendorUrl(VENDOR_BASE_URL + "/" + v.getId());
+                    return v;
+                })
                 .orElseThrow(ResourceNotFoundException::new);
     }
 
@@ -50,6 +58,7 @@ public class VendorServiceImpl implements VendorService {
     public List<VendorDTO> getAll() {
         return Streams.stream(vendorRepository.findAll())
                 .map(vendorMapper::vendorToVendorDTO)
+                .peek(v -> v.setVendorUrl(VENDOR_BASE_URL + "/" + v.getId()))
                 .collect(Collectors.toList());
     }
 
