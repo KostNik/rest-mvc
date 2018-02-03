@@ -1,5 +1,6 @@
 package com.edu.restmvc.controller;
 
+import com.edu.restmvc.exceptions.ResourceNotFoundException;
 import com.edu.restmvc.model.VendorDTO;
 import com.edu.restmvc.service.VendorService;
 import org.assertj.core.util.Lists;
@@ -148,6 +149,15 @@ public class VendorControllerTest {
         mockMvc.perform(delete(VENDOR_BASE_URL + "/" + ID_1))
                 .andExpect(status().isOk());
         verify(vendorService, times(1)).deleteById(anyLong());
+
+    }
+
+    @Test
+    public void notFoundStatusTest() throws Exception {
+
+        when(vendorService.getById(anyLong())).thenThrow(ResourceNotFoundException.class);
+        mockMvc.perform(get(VENDOR_BASE_URL + "/" + ID_1))
+                .andExpect(status().isNotFound());
 
     }
 }
