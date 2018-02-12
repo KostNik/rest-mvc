@@ -1,7 +1,7 @@
 package com.edu.restmvc.mapper;
 
+import com.edu.model.CustomerDTO;
 import com.edu.restmvc.domain.Customer;
-import com.edu.restmvc.model.CustomerDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

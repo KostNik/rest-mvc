@@ -1,6 +1,6 @@
 package com.edu.restmvc.service;
 
-import com.edu.restmvc.model.CustomerDTO;
+import com.edu.model.CustomerDTO;
 
 import java.util.List;
 

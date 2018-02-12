@@ -1,9 +1,9 @@
 package com.edu.restmvc.service;
 
+import com.edu.model.CustomerDTO;
 import com.edu.restmvc.domain.Customer;
 import com.edu.restmvc.exceptions.ResourceNotFoundException;
 import com.edu.restmvc.mapper.CustomerMapper;
-import com.edu.restmvc.model.CustomerDTO;
 import com.edu.restmvc.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

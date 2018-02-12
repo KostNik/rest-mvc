@@ -1,10 +1,9 @@
 package com.edu.restmvc.controller;
 
-import com.edu.restmvc.model.CustomerDTO;
-import com.edu.restmvc.model.CustomerListDTO;
+import com.edu.model.CustomerDTO;
+import com.edu.model.CustomerListDTO;
 import com.edu.restmvc.service.CustomerService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +27,8 @@ public class CustomerController {
     @GetMapping
     public ResponseEntity<CustomerListDTO> getAllCustomers() {
         List<CustomerDTO> all = customerService.getAll();
-        CustomerListDTO customerListDTO = new CustomerListDTO(all);
+        CustomerListDTO customerListDTO = new CustomerListDTO();
+        customerListDTO.getCustomers().addAll(all);
         return ResponseEntity.ok(customerListDTO);
     }
 
